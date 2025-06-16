@@ -2,7 +2,7 @@ import { initialize } from "./cluster.js"
 import { getSqlConnection, getPostgresConnection } from './db.js'
 import cliProgress from 'cli-progress'
 import { setTimeout } from 'node:timers/promises'
-const mongoDB = await getSqlConnection()
+const sqlServer = await getSqlConnection()
 const postgresDB = await getPostgresConnection()
 const ITEMS_PER_PAGE = 4000
 const CLUSTER_SIZE = 99
@@ -13,7 +13,7 @@ await postgresDB.students.deleteAll()
 
 async function* getAllPagedData(itemsPerPage, page = 0) {
 
-    const data = mongoDB.students.find().skip(page).limit(itemsPerPage)
+    const data = sqlServer.students.find().skip(page).limit(itemsPerPage)
     const items = await data.toArray()
     if (!items.length) return
 
@@ -22,7 +22,7 @@ async function* getAllPagedData(itemsPerPage, page = 0) {
     yield* getAllPagedData(itemsPerPage, page += itemsPerPage)
 }
 
-const total = await mongoDB.students.countDocuments()
+const total = await sqlServer.students.countDocuments()
 // console.log(`total items on DB: ${total}`)
 
 const progress = new cliProgress.SingleBar({
