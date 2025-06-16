@@ -1,16 +1,15 @@
 {
-  "name": "parallelizing-nodejs-ops",
+  "name": "parallelizing",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch --no-warnings src/index.js",
-    "seed": "node src/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "erickwendel",
+  "author": "mauriciotroiano",
   "license": "ISC",
   "type": "module",
   "engines": {
@@ -20,10 +19,11 @@
     "@faker-js/faker": "^8.4.1"
   },
   "dependencies": {
+    "dotenv": "^16.0.0",
+    "sequelize": "^6.23.2",
     "cli-progress": "^3.12.0",
     "draftlog": "^1.0.13",
-    "mongodb": "^6.5.0",
-    "pg": "^8.11.5",
+    "pg": "^8.10.0",
     "sqlite3": "^5.1.7"
   }
 }
