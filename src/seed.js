@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { getMongoConnection, getPostgresConnection } from './db.js'
+import { getSqlConnection, getPostgresConnection } from './db.js'
 
 async function seedMongoDB(amount) {
-    const { students, client } = await getMongoConnection()
+    const { students, client } = await getSqlConnection()
     console.log('deleting all students')
     await students.deleteMany({})
     let person = []

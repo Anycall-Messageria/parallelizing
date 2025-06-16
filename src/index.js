@@ -1,8 +1,8 @@
 import { initialize } from "./cluster.js"
-import { getMongoConnection, getPostgresConnection } from './db.js'
+import { getSqlConnection, getPostgresConnection } from './db.js'
 import cliProgress from 'cli-progress'
 import { setTimeout } from 'node:timers/promises'
-const mongoDB = await getMongoConnection()
+const mongoDB = await getSqlConnection()
 const postgresDB = await getPostgresConnection()
 const ITEMS_PER_PAGE = 4000
 const CLUSTER_SIZE = 99

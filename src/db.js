@@ -1,25 +1,16 @@
-import { MongoClient } from 'mongodb';
-import pg from 'pg';
-const { Client } = pg;
-// Connection URL for MongoDB
+import { Sequelize } from 'sequelize'
 
-// Connection pool for PostgreSQL
+async function getSqlConnection() {
+     try {
+            const sequelize = new Sequelize('BI_CLIENTES', 'sa', '1234', {
+            host: '192.168.1.220',
+            dialect: 'mssql',
+                "dialectOptions": {
+                options: { "requestTimeout": 300000 }
+            },
+           });
+           return sequelize
 
-async function getMongoConnection() {
-    const mongoUrl = 'mongodb://root:example@localhost:27017';
-    const client = new MongoClient(mongoUrl);
-
-    try {
-        await client.connect();
-
-        const dbName = 'school';
-        const db = client.db(dbName);
-        const collection = db.collection('students');
-
-        return {
-            students: collection,
-            client,
-        };
     } catch (error) {
         console.error('Error connecting to MongoDB:', error);
         throw error;
@@ -28,15 +19,16 @@ async function getMongoConnection() {
 
 async function getPostgresConnection() {
 
-    const client = new Client({
-        user: 'erickwendel',
-        host: 'localhost',
-        database: 'school',
-        password: 'mypassword',
-        port: 5432,
-    });
+   const sequelize = new Sequelize('BI_CLIENTES', 'postgres', '1977@30@04', {
+            host: '144.91.80.153',
+            dialect: 'postgres',
+                "dialectOptions": {
+                options: { "requestTimeout": 300000 }
+            },
+           });
+           return sequelize
 
-    await client.connect();
+    /*
     return {
         client,
         students: {
@@ -82,6 +74,7 @@ async function getPostgresConnection() {
             }
         }
     };
+    */
 }
 
-export { getMongoConnection, getPostgresConnection };
+export { getSqlConnection, getPostgresConnection };
