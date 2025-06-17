@@ -1,8 +1,9 @@
 import { Sequelize } from "sequelize"
-import { getPostgresConnection } from './db.js'
+import { getPostgresConnection } from '../db.js'
 
+const postgresConnection = await getPostgresConnection()
 
-export default getPostgresConnection.define('resumo_faixas', {
+export default postgresConnection.define('resumo_faixas', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,

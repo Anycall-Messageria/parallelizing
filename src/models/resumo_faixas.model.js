@@ -1,8 +1,9 @@
 import { Sequelize } from "sequelize"
-import { getSqlConnection } from './db.js'
+import { getSqlConnection } from '../db.js'
 
+const sqlConnection = await getSqlConnection()
 
-export default getSqlConnection.define('resumo_faixas', {
+export default sqlConnection.define('resumo_faixas', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,

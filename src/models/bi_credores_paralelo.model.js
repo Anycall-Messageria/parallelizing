@@ -1,7 +1,9 @@
 import { Sequelize } from "sequelize"
-import { getPostgresConnection } from './db.js'
+import { getPostgresConnection } from '../db.js'
 
-export default getPostgresConnection.define('bi_credores', {
+const postgresConnection = await getPostgresConnection()
+
+export default postgresConnection.define('bi_credores', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,

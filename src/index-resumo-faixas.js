@@ -1,7 +1,7 @@
 import { initialize } from "./cluster.js"
 import { getSqlConnection, getPostgresConnection } from './db.js'
-import BiCredores from './models/bi_credores.model.js'
-import BiCredoresParalelo from './models/bi_credores_paralelo.model.js'
+import ResumoFaixas from './models/resumo_faixas.model.js'
+import ResumoFaixasParalelo from './models/resumo_faixas_paralelo.model.js'
 import cliProgress from 'cli-progress'
 import { setTimeout } from 'node:timers/promises'
 
@@ -11,17 +11,17 @@ const ITEMS_PER_PAGE = 4000
 const CLUSTER_SIZE = 99
 const TASK_FILE = new URL('./background-task.js', import.meta.url).pathname
 
-console.log('🚀 Iniciando migração de bi_credores...')
+console.log('🚀 Iniciando migração de resumo_faixas...')
 
 // Marcar registros antigos como STATUS = 0
 console.log('🔄 Marcando registros antigos como STATUS = 0...')
-await BiCredoresParalelo.update(
+await ResumoFaixasParalelo.update(
     { STATUS: 0 }, 
     { where: {} }
 )
 
 async function* getAllPagedData(itemsPerPage, page = 0) {
-    const data = await BiCredores.findAll({
+    const data = await ResumoFaixas.findAll({
         offset: page,
         limit: itemsPerPage,
         raw: true
@@ -33,7 +33,7 @@ async function* getAllPagedData(itemsPerPage, page = 0) {
     yield* getAllPagedData(itemsPerPage, page + itemsPerPage)
 }
 
-const total = await BiCredores.count()
+const total = await ResumoFaixas.count()
 console.log(`📊 Total de registros na origem: ${total.toLocaleString()}`)
 
 const progress = new cliProgress.SingleBar({
@@ -62,12 +62,12 @@ const cp = initialize({
 
             // Limpar registros antigos (STATUS = 0)
             console.log('\n🧹 Removendo registros antigos (STATUS = 0)...')
-            const deletedCount = await BiCredoresParalelo.destroy({
+            const deletedCount = await ResumoFaixasParalelo.destroy({
                 where: { STATUS: 0 }
             })
             console.log(`🗑️  Registros antigos removidos: ${deletedCount.toLocaleString()}`)
 
-            const insertedCount = await BiCredoresParalelo.count()
+            const insertedCount = await ResumoFaixasParalelo.count()
             console.log(`\n✅ Migração concluída!`)
             console.log(`📈 Total no SQL Server: ${total.toLocaleString()}`)
             console.log(`📈 Total no PostgreSQL: ${insertedCount.toLocaleString()}`)
@@ -87,7 +87,7 @@ console.log(`👥 Iniciando ${CLUSTER_SIZE} workers...`)
 
 for await (const data of getAllPagedData(ITEMS_PER_PAGE)) {
     cp.sendToChild({ 
-        table: 'bi_credores', 
+        table: 'resumo_faixas', 
         data: data,
         count: data.length
     })
