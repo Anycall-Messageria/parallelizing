@@ -16,7 +16,7 @@
   "license": "ISC",
   "type": "module",
   "engines": {
-    "node": "v20.12.1"
+    "node": "v18.17.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1"
