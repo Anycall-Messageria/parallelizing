@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch --no-warnings src/index.js",
+    "setup": "node create-tables.js",
+    "test:connection": "node test-connection.js",
     "migrate:bi-credores": "node src/index.js",
     "migrate:resumo-faixas": "node src/index-resumo-faixas.js",
     "migrate:all": "npm run migrate:bi-credores && npm run migrate:resumo-faixas",

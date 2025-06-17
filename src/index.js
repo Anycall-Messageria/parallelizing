@@ -1,11 +1,10 @@
 import { initialize } from "./cluster.js"
-import { getSqlConnection, getPostgresConnection } from './db.js'
+import { getPostgresConnection } from './db.js'
 import BiCredores from './models/bi_credores.model.js'
 import BiCredoresParalelo from './models/bi_credores_paralelo.model.js'
 import cliProgress from 'cli-progress'
 import { setTimeout } from 'node:timers/promises'
 
-const sqlServer = await getSqlConnection()
 const postgresDB = await getPostgresConnection()
 const ITEMS_PER_PAGE = 4000
 const CLUSTER_SIZE = 99
