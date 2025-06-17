@@ -4,11 +4,15 @@ import BiCredores from './models/bi_credores.model.js'
 import BiCredoresParalelo from './models/bi_credores_paralelo.model.js'
 import cliProgress from 'cli-progress'
 import { setTimeout } from 'node:timers/promises'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
 
 const postgresDB = await getPostgresConnection()
 const ITEMS_PER_PAGE = 4000
 const CLUSTER_SIZE = 99
-const TASK_FILE = new URL('./background-task.js', import.meta.url).pathname
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const TASK_FILE = join(__dirname, 'background-task.js')
 
 console.log('🚀 Iniciando migração de bi_credores...')
 

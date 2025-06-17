@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize"
-import { getPostgresConnection } from '../db.js'
+import { getSqlConnection } from '../db.js'
 
-const postgresConnection = await getPostgresConnection()
+const sqlConnection = await getSqlConnection()
 
-export default postgresConnection.define('bi_credores_origem', {
+export default sqlConnection.define('bi_credores', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -138,7 +138,7 @@ export default postgresConnection.define('bi_credores_origem', {
        timestamps: false,
        createdAt: false,
        updatedAt: false,
-       tableName: 'bi_credores_origem',
+       tableName: 'bi_credores',
        freezeTableName: true
    }
  )
