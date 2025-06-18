@@ -102,23 +102,23 @@ export default postgresConnection.define('bi_credores', {
         },
         PNP: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            defaultValue: 0
         },
         TOTAL_ESFORCO: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            defaultValue: 0
         },
         ESFORCO_DISCADOR: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            defaultValue: 0
         },
         PISITIVAS: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            defaultValue: 0
         },
         NEGATIVAS: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            defaultValue: 0
         },
         DATA_BASE: {
             type: Sequelize.DATEONLY
@@ -134,7 +134,11 @@ export default postgresConnection.define('bi_credores', {
             type: Sequelize.DATE
         }
    },        
-   { timestamps: false },
-   { createdAt: false },
-   { updatedAt: false }
+   { 
+       timestamps: false,
+       createdAt: false,
+       updatedAt: false,
+       tableName: 'bi_credores',
+       freezeTableName: true
+   }
  )

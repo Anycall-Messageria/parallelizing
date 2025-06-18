@@ -20,10 +20,12 @@ process.on('message', async ({ table, data, count }) => {
         }
 
         // Inserir lote no PostgreSQL
-        await model.bulkCreate(data, { 
+        console.log(`💾 Worker ${process.pid} iniciando inserção de ${count} registros...`)
+        const result = await model.bulkCreate(data, { 
             ignoreDuplicates: true,
             validate: false // Para melhor performance
         })
+        console.log(`💾 Worker ${process.pid} inseriu ${result.length} registros efetivamente`)
 
         console.log(`✅ Worker ${process.pid} finalizou ${count} registros da tabela ${table}`)
         process.send({
