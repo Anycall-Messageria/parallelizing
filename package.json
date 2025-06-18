@@ -11,6 +11,7 @@
     "migrate:bi-credores": "node src/index.js",
     "migrate:resumo-faixas": "node src/index-resumo-faixas.js",
     "migrate:all": "npm run migrate:bi-credores && npm run migrate:resumo-faixas",
+    "test:insert": "node test-insert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
