@@ -45,7 +45,7 @@ async function getPostgresConnection() {
                 connectTimeout: 300000,
             },
             pool: {
-                max: 5,
+                max: 2,
                 min: 0,
                 acquire: 300000,
                 idle: 10000

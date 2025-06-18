@@ -9,7 +9,7 @@ import { dirname, join } from 'node:path'
 
 const postgresDB = await getPostgresConnection()
 const ITEMS_PER_PAGE = 4000
-const CLUSTER_SIZE = 99
+const CLUSTER_SIZE = 10
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const TASK_FILE = join(__dirname, 'background-task.js')

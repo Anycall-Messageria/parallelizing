@@ -4,7 +4,7 @@ import { getSqlConnection } from '../db.js'
 const sqlConnection = await getSqlConnection()
 
 export default sqlConnection.define('bi_credores', {
-        id: {
+    id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
