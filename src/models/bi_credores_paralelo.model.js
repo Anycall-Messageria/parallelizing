@@ -139,6 +139,19 @@ export default postgresConnection.define('bi_credores', {
        createdAt: false,
        updatedAt: false,
        tableName: 'bi_credores',
-       freezeTableName: true
+       freezeTableName: true,
+       hooks: {
+           beforeBulkCreate: (instances, options) => {
+               instances.forEach(instance => {
+                   // Converter null para 0 nos campos que não podem ser null
+                   if (instance.PNP === null || instance.PNP === undefined) instance.PNP = 0
+                   if (instance.TOTAL_ESFORCO === null || instance.TOTAL_ESFORCO === undefined) instance.TOTAL_ESFORCO = 0
+                   if (instance.ESFORCO_DISCADOR === null || instance.ESFORCO_DISCADOR === undefined) instance.ESFORCO_DISCADOR = 0
+                   if (instance.PISITIVAS === null || instance.PISITIVAS === undefined) instance.PISITIVAS = 0
+                   if (instance.NEGATIVAS === null || instance.NEGATIVAS === undefined) instance.NEGATIVAS = 0
+                   if (instance.STATUS === null || instance.STATUS === undefined) instance.STATUS = 1
+               })
+           }
+       }
    }
  )
