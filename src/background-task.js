@@ -4,6 +4,7 @@ import ResumoFaixasParalelo from './models/resumo_faixas_paralelo.model.js'
 console.log(`🔧 Worker ${process.pid} iniciado`)
 
 process.on('message', async ({ table, data, count }) => {
+    console.log(`🔄 Worker ${process.pid} processando ${count} registros da tabela ${table}`)
     try {
         let model
         
@@ -24,6 +25,7 @@ process.on('message', async ({ table, data, count }) => {
             validate: false // Para melhor performance
         })
 
+        console.log(`✅ Worker ${process.pid} finalizou ${count} registros da tabela ${table}`)
         process.send({
             type: 'batch-completed',
             count: count,
