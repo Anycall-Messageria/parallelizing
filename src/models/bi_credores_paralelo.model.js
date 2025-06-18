@@ -50,7 +50,7 @@ export default postgresConnection.define('bi_credores', {
         },
         CIDADE: {
             type: Sequelize.STRING(30),
-            allowNull: false
+           
         },
         UF: {
             type: Sequelize.STRING(2)
