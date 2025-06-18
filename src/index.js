@@ -88,7 +88,10 @@ const cp = initialize({
 await setTimeout(1000)
 console.log(`👥 Iniciando ${CLUSTER_SIZE} workers...`)
 
+let batchCount = 0
 for await (const data of getAllPagedData(ITEMS_PER_PAGE)) {
+    batchCount++
+    console.log(`📦 Enviando lote ${batchCount} com ${data.length} registros...`)
     cp.sendToChild({ 
         table: 'bi_credores', 
         data: data,
@@ -97,3 +100,4 @@ for await (const data of getAllPagedData(ITEMS_PER_PAGE)) {
 }
 
 console.log('📤 Todos os lotes enviados para processamento...')
+console.log('🔍 Aguardando processamento dos workers...')
